@@ -1,0 +1,4 @@
+res://scenes/won.tscn
+res://scenes/game.tscn
+res://scripts/won.gd
+res://scripts/grid.gd

@@ -39,7 +39,7 @@ var is_controlling = false
 # scoring variables and signals
 signal update_score(new_score)
 var streak=0
-var old_score=0
+var old_score=780
 # counter variables and signals
 signal update_timer(new_time)
 signal update_move_counter(new_move_counter)
@@ -176,8 +176,6 @@ func touch_difference(grid_1, grid_2):
 func _process(delta):
 	if state == MOVE:
 		touch_input()
-	if state == WAIT:
-		restart()
 
 func find_matches():
 	for i in width:
@@ -307,7 +305,7 @@ func game_over():
 	state = WAIT
 	print("game over")
 	if won:
-		get_parent().get_node("background3").show()
+		get_tree().change_scene_to_file('res://scenes/won.tscn')
 	else:
 		get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").show()
 		get_parent().get_node("background2").show()
