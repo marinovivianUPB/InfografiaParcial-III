@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cruh8bbcfvyvr"]
+[gd_scene load_steps=6 format=3 uid="uid://cruh8bbcfvyvr"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_blg2x"]
 [ext_resource type="PackedScene" uid="uid://bt33j5dwxano3" path="res://scenes/top_ui.tscn" id="2_wrbvl"]
 [ext_resource type="Texture2D" uid="uid://cdunkljd6up72" path="res://assets/bottom_ui.png" id="3_jy0d4"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="4_4jr62"]
+[ext_resource type="Script" path="res://scripts/icing_holder.gd" id="5_bc8ov"]
 
 [node name="Game" type="Node2D"]
 
@@ -55,8 +56,12 @@ x_start = 64
 y_start = 800
 offset = 64
 y_offset = 2
+icing_spaces = PackedVector2Array(3, 4, 3, 5, 4, 4, 4, 5)
 
 [node name="clock" type="Timer" parent="grid"]
+
+[node name="icing_holder" type="Node2D" parent="."]
+script = ExtResource("5_bc8ov")
 
 [node name="destroy_timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -78,10 +83,13 @@ offset_right = 576.0
 offset_bottom = 1024.0
 texture = ExtResource("1_blg2x")
 
+[connection signal="damage_icing" from="grid" to="icing_holder" method="_on_grid_damage_icing"]
+[connection signal="make_icing" from="grid" to="icing_holder" method="_on_grid_make_icing"]
 [connection signal="update_move_counter" from="grid" to="top_ui" method="_on_grid_update_move_counter"]
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]
 [connection signal="update_timer" from="grid" to="top_ui" method="_on_grid_update_timer"]
 [connection signal="timeout" from="grid/clock" to="grid" method="_on_clock_timeout"]
+[connection signal="remove_icing" from="icing_holder" to="grid" method="_on_icing_holder_remove_icing"]
 [connection signal="timeout" from="destroy_timer" to="grid" method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]
 [connection signal="timeout" from="refill_timer" to="grid" method="_on_refill_timer_timeout"]

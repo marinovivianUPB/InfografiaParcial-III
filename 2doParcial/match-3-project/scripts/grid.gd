@@ -1,5 +1,4 @@
 extends Node2D
-
 # state machine
 enum {WAIT, MOVE}
 var state
@@ -11,6 +10,10 @@ var state
 @export var y_start: int
 @export var offset: int
 @export var y_offset: int
+
+@export var icing_spaces: PackedVector2Array
+signal make_icing(icing_space)
+signal damage_icing(icing_space)
 
 # piece array
 var possible_pieces = [
@@ -39,7 +42,7 @@ var is_controlling = false
 # scoring variables and signals
 signal update_score(new_score)
 var streak=0
-var old_score=780
+var old_score=0
 # counter variables and signals
 signal update_timer(new_time)
 signal update_move_counter(new_move_counter)
@@ -49,17 +52,46 @@ var move_counter = 30
 # para ganar
 var target_score=800
 var won = false
+
+#special things
+func put_icing():
+	for i in icing_spaces.size():
+		make_icing.emit(icing_spaces[i])
+
+func remove_from_array(array, item):
+	for i in range(array.size()-1,-1,-1):
+		if array[i]==item:
+			array.remove(i)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = MOVE
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()
+	put_icing()
 	if timer:
 		update_timer.emit(counter)
 		get_node("clock").start()
 	else:
 		update_move_counter.emit(move_counter)
+
+func no_fill(position):
+	for i in icing_spaces.size():
+		if icing_spaces[i] == position:
+			return true
+	return false
+
+func no_movement(position):
+	if in_array(icing_spaces,position):
+		return true
+	return false
+
+func in_array(array,item):
+	for i in array.size():
+		if array[i] == item:
+			return true
+	return false
 
 func make_2d_array():
 	var array = []
@@ -85,6 +117,7 @@ func in_grid(column, row):
 func spawn_pieces():
 	for i in width:
 		for j in height:
+			
 			# random number
 			var rand = randi_range(0, possible_pieces.size() - 1)
 			# instance 
@@ -135,17 +168,18 @@ func swap_pieces(column, row, direction: Vector2):
 	var other_piece = all_pieces[column + direction.x][row + direction.y]
 	if first_piece == null or other_piece == null:
 		return
+	if !no_movement(Vector2(column,row)) and !no_fill(Vector2(column,row)+direction):
 	# swap
-	state = WAIT
-	store_info(first_piece, other_piece, Vector2(column, row), direction)
-	all_pieces[column][row] = other_piece
-	all_pieces[column + direction.x][row + direction.y] = first_piece
-	#first_piece.position = grid_to_pixel(column + direction.x, row + direction.y)
-	#other_piece.position = grid_to_pixel(column, row)
-	first_piece.move(grid_to_pixel(column + direction.x, row + direction.y))
-	other_piece.move(grid_to_pixel(column, row))
-	if not move_checked:
-		find_matches()
+		state = WAIT
+		store_info(first_piece, other_piece, Vector2(column, row), direction)
+		all_pieces[column][row] = other_piece
+		all_pieces[column + direction.x][row + direction.y] = first_piece
+		#first_piece.position = grid_to_pixel(column + direction.x, row + direction.y)
+		#other_piece.position = grid_to_pixel(column, row)
+		first_piece.move(grid_to_pixel(column + direction.x, row + direction.y))
+		other_piece.move(grid_to_pixel(column, row))
+		if not move_checked:
+			find_matches()
 
 func store_info(first_piece, other_piece, place, direction):
 	piece_one = first_piece
@@ -220,6 +254,7 @@ func destroy_matched():
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
+				damage_special(i,j)
 				was_matched = true
 				number_of_matched+=1
 				all_pieces[i][j].queue_free()
@@ -236,10 +271,24 @@ func destroy_matched():
 	else:
 		swap_back()
 
+func check_icing(column,row):
+	if column<width-1:
+		damage_icing.emit(Vector2(column+1, row))
+	if column>0:
+		damage_icing.emit(Vector2(column-1, row))
+	if row<height-1:
+		damage_icing.emit(Vector2(column, row+1))
+	if row>0:
+		damage_icing.emit(Vector2(column, row-1))
+	pass
+
+func damage_special(column, row):
+	check_icing(column,row)
+
 func collapse_columns():
 	for i in width:
 		for j in height:
-			if all_pieces[i][j] == null:
+			if all_pieces[i][j] == null && !no_fill(Vector2(i,j)):
 				print(i, j)
 				# look above
 				for k in range(j + 1, height):
@@ -254,7 +303,7 @@ func refill_columns():
 	
 	for i in width:
 		for j in height:
-			if all_pieces[i][j] == null:
+			if all_pieces[i][j] == null && !no_fill(Vector2(i,j)):
 				# random number
 				var rand = randi_range(0, possible_pieces.size() - 1)
 				# instance 
@@ -318,3 +367,7 @@ func _on_clock_timeout():
 		game_over()
 	
 
+func _on_icing_holder_remove_icing(board_position):
+	for i in range(icing_spaces.size()-1,-1,-1):
+		if icing_spaces[i]==board_position:
+			icing_spaces.remove_at(i)
