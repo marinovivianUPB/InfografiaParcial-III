@@ -3,6 +3,9 @@ res://scenes/won.tscn
 res://scenes/icing.tscn
 res://scenes/licorice.tscn
 res://scripts/grid.gd
-res://scripts/licorice.gd
-res://scripts/lock_holder.gd
-res://scenes/licorice.gd
+res://scripts/slime_holder.gd
+res://scenes/slime.tscn
+res://scripts/slime.gd
+res://scenes/jelly.tscn
+res://scripts/jelly_holder.gd
+res://scripts/jelly.gd

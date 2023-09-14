@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3cb64smnf28o"]
+
+[ext_resource type="Script" path="res://scripts/jelly.gd" id="1_cwpuw"]
+[ext_resource type="Texture2D" uid="uid://c6k6lft354ka2" path="res://art/jelly.png" id="2_24481"]
+
+[node name="jelly" type="Node2D"]
+script = ExtResource("1_cwpuw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_24481")

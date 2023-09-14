@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cruh8bbcfvyvr"]
+[gd_scene load_steps=10 format=3 uid="uid://cruh8bbcfvyvr"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_blg2x"]
 [ext_resource type="PackedScene" uid="uid://bt33j5dwxano3" path="res://scenes/top_ui.tscn" id="2_wrbvl"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/icing_holder.gd" id="5_bc8ov"]
 [ext_resource type="PackedScene" uid="uid://dlqc4essqxph0" path="res://scenes/licorice.tscn" id="6_eevtr"]
 [ext_resource type="Script" path="res://scripts/lock_holder.gd" id="7_puax5"]
+[ext_resource type="Script" path="res://scripts/slime_holder.gd" id="8_6khlp"]
+[ext_resource type="Script" path="res://scripts/jelly_holder.gd" id="9_3l27v"]
 
 [node name="Game" type="Node2D"]
 
@@ -60,6 +62,8 @@ offset = 64
 y_offset = 2
 icing_spaces = PackedVector2Array(3, 4, 3, 5, 4, 4, 4, 5)
 lock_spaces = PackedVector2Array(3, 2, 4, 2, 3, 7, 4, 7)
+slime_spaces = PackedVector2Array(0, 4, 0, 5, 7, 4, 7, 5)
+jelly_spaces = PackedVector2Array(3, 0, 4, 0, 3, 9, 4, 9)
 
 [node name="clock" type="Timer" parent="grid"]
 
@@ -92,10 +96,20 @@ position = Vector2(-94, 111)
 [node name="lock_holder" type="Node2D" parent="."]
 script = ExtResource("7_puax5")
 
+[node name="slime_holder" type="Node2D" parent="."]
+script = ExtResource("8_6khlp")
+
+[node name="jelly_holder" type="Node2D" parent="."]
+script = ExtResource("9_3l27v")
+
 [connection signal="damage_icing" from="grid" to="icing_holder" method="_on_grid_damage_icing"]
+[connection signal="damage_jelly" from="grid" to="jelly_holder" method="_on_grid_damage_jelly"]
 [connection signal="damage_lock" from="grid" to="lock_holder" method="_on_grid_damage_lock"]
+[connection signal="damage_slime" from="grid" to="slime_holder" method="_on_grid_damage_slime"]
 [connection signal="make_icing" from="grid" to="icing_holder" method="_on_grid_make_icing"]
+[connection signal="make_jelly" from="grid" to="jelly_holder" method="_on_grid_make_jelly"]
 [connection signal="make_lock" from="grid" to="lock_holder" method="_on_grid_make_lock"]
+[connection signal="make_slime" from="grid" to="slime_holder" method="_on_grid_make_slime"]
 [connection signal="update_move_counter" from="grid" to="top_ui" method="_on_grid_update_move_counter"]
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]
 [connection signal="update_timer" from="grid" to="top_ui" method="_on_grid_update_timer"]
@@ -105,3 +119,4 @@ script = ExtResource("7_puax5")
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]
 [connection signal="timeout" from="refill_timer" to="grid" method="_on_refill_timer_timeout"]
 [connection signal="remove_lock" from="lock_holder" to="grid" method="_on_lock_holder_remove_lock"]
+[connection signal="remove_slime" from="slime_holder" to="grid" method="_on_slime_holder_remove_slime"]

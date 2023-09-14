@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1ka3efr3dhif"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_e7y3t"]
+[ext_resource type="Texture2D" uid="uid://cemaxvgsh4ebu" path="res://art/Slime.png" id="1_n2wu7"]
+
+[node name="slime" type="Node2D"]
+script = ExtResource("1_e7y3t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_n2wu7")

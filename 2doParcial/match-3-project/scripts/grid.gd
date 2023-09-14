@@ -11,6 +11,8 @@ var state
 @export var offset: int
 @export var y_offset: int
 
+var damaged_slime = false
+
 @export var icing_spaces: PackedVector2Array
 signal make_icing(icing_space)
 signal damage_icing(icing_space)
@@ -18,6 +20,15 @@ signal damage_icing(icing_space)
 @export var lock_spaces: PackedVector2Array
 signal make_lock(lock_space)
 signal damage_lock(lock_space)
+
+@export var slime_spaces: PackedVector2Array
+signal make_slime(slime_space)
+signal damage_slime(slime_space)
+
+@export var jelly_spaces: PackedVector2Array
+signal make_jelly(jelly_space)
+signal damage_jelly(jelly_space)
+
 
 # piece array
 var possible_pieces = [
@@ -66,6 +77,13 @@ func put_locks():
 	for i in lock_spaces.size():
 		make_lock.emit(lock_spaces[i])
 
+func put_slime():
+	for i in slime_spaces.size():
+		make_slime.emit(slime_spaces[i])
+func put_jelly():
+	for i in jelly_spaces.size():
+		make_jelly.emit(jelly_spaces[i])
+
 func remove_from_array(array, item):
 	for i in range(array.size()-1,-1,-1):
 		if array[i]==item:
@@ -79,6 +97,8 @@ func _ready():
 	spawn_pieces()
 	put_icing()
 	put_locks()
+	put_slime()
+	put_jelly()
 	if timer:
 		update_timer.emit(counter)
 		get_node("clock").start()
@@ -89,7 +109,9 @@ func no_fill(position):
 	for i in icing_spaces.size():
 		if icing_spaces[i] == position:
 			return true
-	
+	for i in slime_spaces.size():
+		if slime_spaces[i] == position:
+			return true
 	return false
 
 func no_movement(position):
@@ -147,6 +169,12 @@ func spawn_pieces():
 			piece.position = grid_to_pixel(i, j)
 			# fill array with pieces
 			all_pieces[i][j] = piece
+
+func is_piece_sinker(column, row):
+	if all_pieces[column][row] != null:
+		if all_pieces[column][row].color == "None":
+			return true
+	return false
 
 func match_at(i, j, color):
 	# check left
@@ -298,12 +326,28 @@ func check_icing(column,row):
 		damage_icing.emit(Vector2(column, row-1))
 	pass
 	
+func check_slime(column,row):
+	if column<width-1:
+		damage_slime.emit(Vector2(column+1, row))
+	if column>0:
+		damage_slime.emit(Vector2(column-1, row))
+	if row<height-1:
+		damage_slime.emit(Vector2(column, row+1))
+	if row>0:
+		damage_slime.emit(Vector2(column, row-1))
+	pass
+	
 
 
 func damage_special(column, row):
 	check_icing(column,row)
 	damage_lock.emit(Vector2(column, row))
-
+	check_slime(column,row)
+	damage_jelly.emit(Vector2(column, row))
+	
+	
+	
+	
 func collapse_columns():
 	for i in width:
 		for j in height:
@@ -349,6 +393,8 @@ func check_after_refill():
 				find_matches()
 				get_parent().get_node("destroy_timer").start()
 				return
+	if !damaged_slime:
+		generate_slime()
 	state = MOVE
 	streak=0
 	if move_counter > 0:
@@ -357,6 +403,50 @@ func check_after_refill():
 	else:
 		game_over()
 	move_checked = false
+	damaged_slime = false
+	
+func generate_slime():
+	# Make sure there are slime pieces on the board
+	if slime_spaces.size() > 0:
+		var slime_made = false
+		var tracker = 0
+		while !slime_made and tracker < 100:
+			# Check a random slime
+			var random_num = floor(randf_range(0, slime_spaces.size()))
+			var curr_x = slime_spaces[random_num].x
+			var curr_y = slime_spaces[random_num].y
+			var neighbor = find_normal_neighbor(curr_x, curr_y)
+			if neighbor != null:
+				# Turn that neighbor into a slime
+				# Remove that piece
+				all_pieces[neighbor.x][neighbor.y].queue_free()
+				# set it to null
+				all_pieces[neighbor.x][neighbor.y] = null
+				# Add this new spot to the array of slimes
+				slime_spaces.append(Vector2(neighbor.x, neighbor.y))
+				# Send a signal to the slime holder to make a new slime
+				make_slime.emit(Vector2(neighbor.x, neighbor.y))
+				slime_made = true
+			tracker += 1
+
+func find_normal_neighbor(column, row):
+	# Check Right first
+	if in_grid(column + 1, row):
+		if all_pieces[column + 1][row] != null and !is_piece_sinker(column + 1, row):
+			return Vector2(column + 1, row)
+	# Check Left
+	elif in_grid(column - 1, row):
+		if all_pieces[column - 1][row] != null and !is_piece_sinker(column - 1, row):
+			return Vector2(column - 1, row)
+	# Check up
+	elif in_grid(column, row + 1):
+		if all_pieces[column][row + 1] != null and !is_piece_sinker(column, row + 1):
+			return Vector2(column, row + 1)
+	# Check Down
+	elif in_grid(column, row -1):
+		if all_pieces[column][row-1] != null and !is_piece_sinker(column, row - 1):
+			return Vector2(column, row-1)
+	return null
 
 func _on_destroy_timer_timeout():
 	print("destroy")
@@ -396,4 +486,12 @@ func _on_lock_holder_remove_lock(board_position):
 	for i in range(lock_spaces.size()-1,-1,-1):
 		if lock_spaces[i]==board_position:
 			lock_spaces.remove_at(i)
+
+
+
+func _on_slime_holder_remove_slime(board_position):
+	damaged_slime = true
+	for i in range(slime_spaces.size()-1,-1,-1):
+		if slime_spaces[i]==board_position:
+			slime_spaces.remove_at(i)
 

@@ -1,8 +1,10 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1694725190
+::res://::1694732360
 icon.svg::CompressedTexture2D::1439219327908246736::1694605942::1694605942::1::::<><>::
-::res://art/::1694606528
+::res://art/::1694732207
+jelly.png::CompressedTexture2D::6971241461495985995::1694732068::1694732207::1::::<><>::
 Locks.png::CompressedTexture2D::3545894088291670422::1694606527::1694606528::1::::<><>::
+Slime.png::CompressedTexture2D::5078411461334377566::1694727332::1694727332::1::::<><>::
 ::res://assets/::1694605942
 background.png::CompressedTexture2D::3612365713185931583::1694605942::1694605942::1::::<><>::
 bottom_ui.png::CompressedTexture2D::5025503224065136327::1694605942::1694605942::1::::<><>::
@@ -38,25 +40,31 @@ Yellow Adjacent.png::CompressedTexture2D::6822603290880438611::1694605942::16946
 Yellow Column.png::CompressedTexture2D::1746158678168645634::1694605942::1694605942::1::::<><>::
 Yellow Piece.png::CompressedTexture2D::413519736513276236::1694605942::1694605942::1::::<><>::
 Yellow Row.png::CompressedTexture2D::5902573126665028620::1694605942::1694605942::1::::<><>::
-::res://scenes/::1694610884
+::res://scenes/::1694732360
 blue_piece.tscn::PackedScene::3723709248147792561::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
-game.tscn::PackedScene::6007823268628735923::1694610884::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://bt33j5dwxano3::::res://scenes/top_ui.tscn<>uid://cdunkljd6up72::::res://assets/bottom_ui.png<>res://scripts/grid.gd<>res://scripts/icing_holder.gd<>uid://dlqc4essqxph0::::res://scenes/licorice.tscn<>res://scripts/lock_holder.gd
+game.tscn::PackedScene::6007823268628735923::1694731739::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://bt33j5dwxano3::::res://scenes/top_ui.tscn<>uid://cdunkljd6up72::::res://assets/bottom_ui.png<>res://scripts/grid.gd<>res://scripts/icing_holder.gd<>uid://dlqc4essqxph0::::res://scenes/licorice.tscn<>res://scripts/lock_holder.gd<>res://scripts/slime_holder.gd
 green_piece.tscn::PackedScene::2133657546713321240::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
-icing.tscn::PackedScene::8693616879721853625::1694610884::0::1::::<><>::res://scripts/icing.gd<>uid://d1ucglmj14llv::::res://assets/pieces/Rainbow.png
-licorice.tscn::PackedScene::7964542835911411387::1694610884::0::1::::<><>::uid://bqrwmfmbcun87::::res://art/Locks.png<>res://scripts/licorice.gd
+icing.tscn::PackedScene::8693616879721853625::1694731739::0::1::::<><>::res://scripts/icing.gd<>uid://d1ucglmj14llv::::res://assets/pieces/Rainbow.png
+jelly.tscn::PackedScene::9128796056602607700::1694732360::0::1::::<><>::res://scripts/jelly.gd<>uid://c6k6lft354ka2::::res://art/jelly.png
+licorice.tscn::PackedScene::7964542835911411387::1694731739::0::1::::<><>::uid://bqrwmfmbcun87::::res://art/Locks.png<>res://scripts/licorice.gd
 light_green_piece.tscn::PackedScene::4761783514317088189::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
 orange_piece.tscn::PackedScene::6922208767561527685::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
 piece.tscn::PackedScene::7745980534113487799::1694605942::0::1::::<><>::res://scripts/piece.gd
 pink_piece.tscn::PackedScene::4170104838850698021::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
+jelly_holder.gd::GDScript::-1::1694733309::0::1::::<>Node2D<>::
+slime.tscn::PackedScene::9004865984065448553::1694731739::0::1::::<><>::res://scripts/slime.gd<>uid://cemaxvgsh4ebu::::res://art/Slime.png
 top_ui.tscn::PackedScene::3779529019237243292::1694605942::0::1::::<><>::uid://bacqucona7fm3
-won.tscn::PackedScene::1848833215022567752::1694610884::0::1::::<><>::uid://bh5iapcu2lkvf::::res://assets/confetti.jpg<>res://scripts/won.gd
+won.tscn::PackedScene::1848833215022567752::1694731739::0::1::::<><>::uid://bh5iapcu2lkvf::::res://assets/confetti.jpg<>res://scripts/won.gd
 yellow_piece.tscn::PackedScene::8054288014610159906::1694605942::0::1::::<><>::uid://dimhfx4c1igfv
-::res://scripts/::1694610749
-grid.gd::GDScript::-1::1694610749::0::1::::<>Node2D<>::
+::res://scripts/::1694732360
+grid.gd::GDScript::-1::1694731737::0::1::::<>Node2D<>::
 icing.gd::GDScript::-1::1694605942::0::1::::<>Node2D<>::
 icing_holder.gd::GDScript::-1::1694605942::0::1::::<>Node2D<>::
+jelly.gd::GDScript::-1::1694732297::0::1::::<>Node2D<>::
 licorice.gd::GDScript::-1::1694608438::0::1::::<>Node2D<>::
 lock_holder.gd::GDScript::-1::1694608325::0::1::::<>Node2D<>::
 piece.gd::GDScript::-1::1694605942::0::1::::<>Node2D<>::
+slime.gd::GDScript::-1::1694728622::0::1::::<>Node2D<>::
+slime_holder.gd::GDScript::-1::1694729821::0::1::::<>Node2D<>::
 top_ui.gd::GDScript::-1::1694605942::0::1::::<>TextureRect<>::
 won.gd::GDScript::-1::1694605942::0::1::::<>Node2D<>::
