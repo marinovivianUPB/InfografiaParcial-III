@@ -1,6 +1,6 @@
 extends Node2D
 # state machine
-enum {WAIT, MOVE}
+enum {WAIT, MOVE, BOMB}
 var state
 
 # grid
@@ -15,6 +15,11 @@ var state
 signal make_icing(icing_space)
 signal damage_icing(icing_space)
 
+@export var empty_spaces: PackedVector2Array
+
+var bomb_space=false
+@export var can_bomb: bool
+var bomb_counter=0
 # piece array
 var possible_pieces = [
 	preload("res://scenes/blue_piece.tscn"),
@@ -73,17 +78,21 @@ func _ready():
 	if timer:
 		update_timer.emit(counter)
 		get_node("clock").start()
+		move_counter=0
 	else:
 		update_move_counter.emit(move_counter)
 
 func no_fill(position):
-	for i in icing_spaces.size():
-		if icing_spaces[i] == position:
-			return true
+	if in_array(icing_spaces,position):
+		return true
+	if in_array(empty_spaces,position):
+		return true 
 	return false
 
 func no_movement(position):
 	if in_array(icing_spaces,position):
+		return true
+	if in_array(empty_spaces,position):
 		return true
 	return false
 
@@ -117,22 +126,22 @@ func in_grid(column, row):
 func spawn_pieces():
 	for i in width:
 		for j in height:
-			
-			# random number
-			var rand = randi_range(0, possible_pieces.size() - 1)
-			# instance 
-			var piece = possible_pieces[rand].instantiate()
-			# repeat until no matches
-			var max_loops = 100
-			var loops = 0
-			while (match_at(i, j, piece.color) and loops < max_loops):
-				rand = randi_range(0, possible_pieces.size() - 1)
-				loops += 1
-				piece = possible_pieces[rand].instantiate()
-			add_child(piece)
-			piece.position = grid_to_pixel(i, j)
-			# fill array with pieces
-			all_pieces[i][j] = piece
+			if !no_fill(Vector2(i,j)):
+				# random number
+				var rand = randi_range(0, possible_pieces.size() - 1)
+				# instance 
+				var piece = possible_pieces[rand].instantiate()
+				# repeat until no matches
+				var max_loops = 100
+				var loops = 0
+				while (match_at(i, j, piece.color) and loops < max_loops):
+					rand = randi_range(0, possible_pieces.size() - 1)
+					loops += 1
+					piece = possible_pieces[rand].instantiate()
+				add_child(piece)
+				piece.position = grid_to_pixel(i, j)
+				# fill array with pieces
+				all_pieces[i][j] = piece
 
 func match_at(i, j, color):
 	# check left
@@ -208,8 +217,28 @@ func touch_difference(grid_1, grid_2):
 			swap_pieces(grid_1.x, grid_1.y, Vector2(0, -1))
 
 func _process(delta):
-	if state == MOVE:
+	if state == MOVE && !bomb_space:
 		touch_input()
+	if bomb_space:
+		activate_bomb()
+
+func activate_bomb():
+	var mouse_pos = get_global_mouse_position()
+	var grid_pos = pixel_to_grid(mouse_pos.x, mouse_pos.y)
+	if Input.is_action_just_pressed("ui_touch") and in_grid(grid_pos.x, grid_pos.y):
+		var touch = grid_pos
+		if all_pieces[touch.x][touch.y] != null:
+			all_pieces[touch.x][touch.y].selected()
+			for i in range(width):
+				if all_pieces[i][touch.y] != null:
+					all_pieces[i][touch.y].matched = true
+					all_pieces[i][touch.y].dim()
+			for j in range(height):
+				if all_pieces[touch.x][j] != null:
+					all_pieces[touch.x][j].matched = true
+					all_pieces[touch.x][j].dim()
+		get_parent().get_node("destroy_timer").start()
+		bomb_space=false
 
 func find_matches():
 	for i in width:
@@ -262,10 +291,14 @@ func destroy_matched():
 				
 	move_checked = true
 	old_score+=number_of_matched*10*streak
+	if can_bomb:
+		bomb_counter+=number_of_matched*10*streak
 	update_score.emit(old_score)
 	if old_score >= target_score:
 		won = true
-		game_over()
+		if bomb_counter>=target_score:
+			bomb_space=true
+			bomb_counter=0
 	if was_matched:
 		get_parent().get_node("collapse_timer").start()
 	else:
@@ -283,7 +316,9 @@ func check_icing(column,row):
 	pass
 
 func damage_special(column, row):
-	check_icing(column,row)
+	if icing_spaces.size() >0:
+		check_icing(column,row)
+	
 
 func collapse_columns():
 	for i in width:
@@ -332,10 +367,10 @@ func check_after_refill():
 				return
 	state = MOVE
 	streak=0
-	if move_counter > 0:
+	if move_counter > 0 && !timer:
 		move_counter-=1
 		update_move_counter.emit(move_counter)
-	else:
+	elif !timer && move_counter<=0:
 		game_over()
 	move_checked = false
 

@@ -1,6 +1,6 @@
-res://scenes/icing.tscn
-res://scripts/icing.gd
 res://scenes/game.tscn
-res://scripts/grid.gd
-res://scripts/icing_holder.gd
 res://scenes/won.tscn
+res://scenes/icing.tscn
+res://scripts/grid.gd
+res://scenes/blue_piece.tscn
+res://scripts/piece.gd
