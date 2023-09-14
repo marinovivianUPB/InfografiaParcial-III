@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cruh8bbcfvyvr"]
+[gd_scene load_steps=8 format=3 uid="uid://cruh8bbcfvyvr"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_blg2x"]
 [ext_resource type="PackedScene" uid="uid://bt33j5dwxano3" path="res://scenes/top_ui.tscn" id="2_wrbvl"]
 [ext_resource type="Texture2D" uid="uid://cdunkljd6up72" path="res://assets/bottom_ui.png" id="3_jy0d4"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="4_4jr62"]
 [ext_resource type="Script" path="res://scripts/icing_holder.gd" id="5_bc8ov"]
+[ext_resource type="PackedScene" uid="uid://dlqc4essqxph0" path="res://scenes/licorice.tscn" id="6_eevtr"]
+[ext_resource type="Script" path="res://scripts/lock_holder.gd" id="7_puax5"]
 
 [node name="Game" type="Node2D"]
 
@@ -57,6 +59,7 @@ y_start = 800
 offset = 64
 y_offset = 2
 icing_spaces = PackedVector2Array(3, 4, 3, 5, 4, 4, 4, 5)
+lock_spaces = PackedVector2Array(3, 2, 4, 2, 3, 7, 4, 7)
 
 [node name="clock" type="Timer" parent="grid"]
 
@@ -83,8 +86,16 @@ offset_right = 576.0
 offset_bottom = 1024.0
 texture = ExtResource("1_blg2x")
 
+[node name="licorice" parent="." instance=ExtResource("6_eevtr")]
+position = Vector2(-94, 111)
+
+[node name="lock_holder" type="Node2D" parent="."]
+script = ExtResource("7_puax5")
+
 [connection signal="damage_icing" from="grid" to="icing_holder" method="_on_grid_damage_icing"]
+[connection signal="damage_lock" from="grid" to="lock_holder" method="_on_grid_damage_lock"]
 [connection signal="make_icing" from="grid" to="icing_holder" method="_on_grid_make_icing"]
+[connection signal="make_lock" from="grid" to="lock_holder" method="_on_grid_make_lock"]
 [connection signal="update_move_counter" from="grid" to="top_ui" method="_on_grid_update_move_counter"]
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]
 [connection signal="update_timer" from="grid" to="top_ui" method="_on_grid_update_timer"]
@@ -93,3 +104,4 @@ texture = ExtResource("1_blg2x")
 [connection signal="timeout" from="destroy_timer" to="grid" method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]
 [connection signal="timeout" from="refill_timer" to="grid" method="_on_refill_timer_timeout"]
+[connection signal="remove_lock" from="lock_holder" to="grid" method="_on_lock_holder_remove_lock"]

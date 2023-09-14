@@ -15,6 +15,10 @@ var state
 signal make_icing(icing_space)
 signal damage_icing(icing_space)
 
+@export var lock_spaces: PackedVector2Array
+signal make_lock(lock_space)
+signal damage_lock(lock_space)
+
 # piece array
 var possible_pieces = [
 	preload("res://scenes/blue_piece.tscn"),
@@ -57,6 +61,10 @@ var won = false
 func put_icing():
 	for i in icing_spaces.size():
 		make_icing.emit(icing_spaces[i])
+		
+func put_locks():
+	for i in lock_spaces.size():
+		make_lock.emit(lock_spaces[i])
 
 func remove_from_array(array, item):
 	for i in range(array.size()-1,-1,-1):
@@ -70,6 +78,7 @@ func _ready():
 	all_pieces = make_2d_array()
 	spawn_pieces()
 	put_icing()
+	put_locks()
 	if timer:
 		update_timer.emit(counter)
 		get_node("clock").start()
@@ -80,12 +89,17 @@ func no_fill(position):
 	for i in icing_spaces.size():
 		if icing_spaces[i] == position:
 			return true
+	
 	return false
 
 func no_movement(position):
 	if in_array(icing_spaces,position):
 		return true
 	return false
+	if in_array(lock_spaces,position):
+		return true
+	return false
+	
 
 func in_array(array,item):
 	for i in array.size():
@@ -168,7 +182,7 @@ func swap_pieces(column, row, direction: Vector2):
 	var other_piece = all_pieces[column + direction.x][row + direction.y]
 	if first_piece == null or other_piece == null:
 		return
-	if !no_movement(Vector2(column,row)) and !no_fill(Vector2(column,row)+direction):
+	if !no_movement(Vector2(column,row)) and !no_movement(Vector2(column,row)+direction):
 	# swap
 		state = WAIT
 		store_info(first_piece, other_piece, Vector2(column, row), direction)
@@ -180,6 +194,8 @@ func swap_pieces(column, row, direction: Vector2):
 		other_piece.move(grid_to_pixel(column, row))
 		if not move_checked:
 			find_matches()
+
+
 
 func store_info(first_piece, other_piece, place, direction):
 	piece_one = first_piece
@@ -281,9 +297,12 @@ func check_icing(column,row):
 	if row>0:
 		damage_icing.emit(Vector2(column, row-1))
 	pass
+	
+
 
 func damage_special(column, row):
 	check_icing(column,row)
+	damage_lock.emit(Vector2(column, row))
 
 func collapse_columns():
 	for i in width:
@@ -371,3 +390,10 @@ func _on_icing_holder_remove_icing(board_position):
 	for i in range(icing_spaces.size()-1,-1,-1):
 		if icing_spaces[i]==board_position:
 			icing_spaces.remove_at(i)
+
+
+func _on_lock_holder_remove_lock(board_position):
+	for i in range(lock_spaces.size()-1,-1,-1):
+		if lock_spaces[i]==board_position:
+			lock_spaces.remove_at(i)
+
