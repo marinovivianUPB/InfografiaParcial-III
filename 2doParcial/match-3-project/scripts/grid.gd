@@ -15,11 +15,27 @@ var state
 signal make_icing(icing_space)
 signal damage_icing(icing_space)
 
+@export var lock_spaces: PackedVector2Array
+signal make_lock(lock_space)
+signal damage_lock(lock_space)
+
 @export var empty_spaces: PackedVector2Array
 
-var bomb_space=false
+@export var slime_spaces: PackedVector2Array
+signal make_slime(slime_space)
+signal damage_slime(slime_space)
+
+@export var jelly_spaces: PackedVector2Array
+signal make_jelly(jelly_space)
+signal damage_jelly(jelly_space)
+
 @export var can_bomb: bool
+var bomb_space=false
 var bomb_counter=0
+
+@export var can_color_bomb: bool
+var color_bomb_space=false
+var color_bomb_counter=0
 # piece array
 var possible_pieces = [
 	preload("res://scenes/blue_piece.tscn"),
@@ -44,6 +60,7 @@ var first_touch = Vector2.ZERO
 var final_touch = Vector2.ZERO
 var is_controlling = false
 
+var damaged_slime = false
 # scoring variables and signals
 signal update_score(new_score)
 var streak=0
@@ -51,17 +68,28 @@ var old_score=0
 # counter variables and signals
 signal update_timer(new_time)
 signal update_move_counter(new_move_counter)
-var timer = true
-var counter = 60
-var move_counter = 30
+@export var timer : bool
+@export var counter : int
+@export var move_counter : int
 # para ganar
-var target_score=800
+@export var target_score: int
 var won = false
 
 #special things
 func put_icing():
 	for i in icing_spaces.size():
 		make_icing.emit(icing_spaces[i])
+
+func put_locks():
+	for i in lock_spaces.size():
+		make_lock.emit(lock_spaces[i])
+
+func put_slime():
+	for i in slime_spaces.size():
+		make_slime.emit(slime_spaces[i])
+func put_jelly():
+	for i in jelly_spaces.size():
+		make_jelly.emit(jelly_spaces[i])
 
 func remove_from_array(array, item):
 	for i in range(array.size()-1,-1,-1):
@@ -75,6 +103,9 @@ func _ready():
 	all_pieces = make_2d_array()
 	spawn_pieces()
 	put_icing()
+	put_locks()
+	put_slime()
+	put_jelly()
 	if timer:
 		update_timer.emit(counter)
 		get_node("clock").start()
@@ -87,6 +118,8 @@ func no_fill(position):
 		return true
 	if in_array(empty_spaces,position):
 		return true 
+	if in_array(slime_spaces, position):
+		return true
 	return false
 
 func no_movement(position):
@@ -94,7 +127,12 @@ func no_movement(position):
 		return true
 	if in_array(empty_spaces,position):
 		return true
+	if in_array(lock_spaces,position):
+		return true
 	return false
+
+func is_special(position):
+	return in_array(empty_spaces,position) && in_array(icing_spaces,position) 
 
 func in_array(array,item):
 	for i in array.size():
@@ -143,6 +181,12 @@ func spawn_pieces():
 				# fill array with pieces
 				all_pieces[i][j] = piece
 
+func is_piece_sinker(column, row):
+	if all_pieces[column][row] != null:
+		if all_pieces[column][row].color == "None":
+			return true
+	return false
+
 func match_at(i, j, color):
 	# check left
 	if i > 1:
@@ -177,7 +221,7 @@ func swap_pieces(column, row, direction: Vector2):
 	var other_piece = all_pieces[column + direction.x][row + direction.y]
 	if first_piece == null or other_piece == null:
 		return
-	if !no_movement(Vector2(column,row)) and !no_fill(Vector2(column,row)+direction):
+	if !no_movement(Vector2(column,row)) and !no_movement(Vector2(column,row)+direction):
 	# swap
 		state = WAIT
 		store_info(first_piece, other_piece, Vector2(column, row), direction)
@@ -217,10 +261,12 @@ func touch_difference(grid_1, grid_2):
 			swap_pieces(grid_1.x, grid_1.y, Vector2(0, -1))
 
 func _process(delta):
-	if state == MOVE && !bomb_space:
+	if state == MOVE && !bomb_space && !color_bomb_space:
 		touch_input()
-	if bomb_space:
+	if bomb_space && !color_bomb_space:
 		activate_bomb()
+	if !bomb_space && color_bomb_space:
+		activate_color_bomb()
 
 func activate_bomb():
 	var mouse_pos = get_global_mouse_position()
@@ -229,16 +275,36 @@ func activate_bomb():
 		var touch = grid_pos
 		if all_pieces[touch.x][touch.y] != null:
 			all_pieces[touch.x][touch.y].selected()
+			all_pieces[touch.x][touch.y].matched=true
 			for i in range(width):
-				if all_pieces[i][touch.y] != null:
+				if all_pieces[i][touch.y] != null && i!=touch.x:
 					all_pieces[i][touch.y].matched = true
 					all_pieces[i][touch.y].dim()
 			for j in range(height):
-				if all_pieces[touch.x][j] != null:
+				if all_pieces[touch.x][j] != null && j!=touch.y:
 					all_pieces[touch.x][j].matched = true
-					all_pieces[touch.x][j].dim()
+					all_pieces[touch.x][j].selected()
 		get_parent().get_node("destroy_timer").start()
 		bomb_space=false
+		get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").hide()
+
+func activate_color_bomb():
+	var mouse_pos = get_global_mouse_position()
+	var grid_pos = pixel_to_grid(mouse_pos.x, mouse_pos.y)
+	if Input.is_action_just_pressed("ui_touch") and in_grid(grid_pos.x, grid_pos.y):
+		var touch = grid_pos
+		if all_pieces[touch.x][touch.y] != null:
+			var current_color = all_pieces[touch.x][touch.y].color
+			all_pieces[touch.x][touch.y].color_selected()
+			all_pieces[touch.x][touch.y].matched=true
+			for i in range(width):
+				for j in range(height):
+					if all_pieces[i][j]!=null && !is_special(Vector2(i,j)) && (all_pieces[i][j].color ==  current_color):
+						all_pieces[i][j].color_selected()
+						all_pieces[i][j].matched = true
+		get_parent().get_node("destroy_timer").start()
+		color_bomb_space=false
+		get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").hide()
 
 func find_matches():
 	for i in width:
@@ -293,12 +359,21 @@ func destroy_matched():
 	old_score+=number_of_matched*10*streak
 	if can_bomb:
 		bomb_counter+=number_of_matched*10*streak
+	if can_color_bomb:
+		color_bomb_counter+=number_of_matched*10*streak
 	update_score.emit(old_score)
 	if old_score >= target_score:
 		won = true
-		if bomb_counter>=target_score:
+		if bomb_counter>=target_score && !color_bomb_space:
 			bomb_space=true
 			bomb_counter=0
+			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").text = "BOMB!"
+			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").show()
+		if color_bomb_counter>=1000 && !bomb_space:
+			color_bomb_space=true
+			color_bomb_counter=0
+			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").text = "COLOR BOMB!"
+			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").show()
 	if was_matched:
 		get_parent().get_node("collapse_timer").start()
 	else:
@@ -315,9 +390,26 @@ func check_icing(column,row):
 		damage_icing.emit(Vector2(column, row-1))
 	pass
 
+func check_slime(column,row):
+	if column<width-1:
+		damage_slime.emit(Vector2(column+1, row))
+	if column>0:
+		damage_slime.emit(Vector2(column-1, row))
+	if row<height-1:
+		damage_slime.emit(Vector2(column, row+1))
+	if row>0:
+		damage_slime.emit(Vector2(column, row-1))
+	pass
+
 func damage_special(column, row):
 	if icing_spaces.size() >0:
 		check_icing(column,row)
+	if lock_spaces.size()>0:
+		damage_lock.emit(Vector2(column, row))
+	if slime_spaces.size()>0:
+		check_slime(column,row)
+	if jelly_spaces.size()>0:
+		damage_jelly.emit(Vector2(column, row))
 	
 
 func collapse_columns():
@@ -365,6 +457,8 @@ func check_after_refill():
 				find_matches()
 				get_parent().get_node("destroy_timer").start()
 				return
+	if !damaged_slime:
+		generate_slime()
 	state = MOVE
 	streak=0
 	if move_counter > 0 && !timer:
@@ -373,6 +467,43 @@ func check_after_refill():
 	elif !timer && move_counter<=0:
 		game_over()
 	move_checked = false
+	damaged_slime = false
+
+func generate_slime():
+	if slime_spaces.size() > 0:
+		var slime_made = false
+		var tracker = 0
+		while !slime_made and tracker < 100:
+			var random_num = floor(randf_range(0, slime_spaces.size()))
+			var curr_x = slime_spaces[random_num].x
+			var curr_y = slime_spaces[random_num].y
+			var neighbor = find_normal_neighbor(curr_x, curr_y)
+			if neighbor != null:
+				all_pieces[neighbor.x][neighbor.y].queue_free()
+				all_pieces[neighbor.x][neighbor.y] = null
+				slime_spaces.append(Vector2(neighbor.x, neighbor.y))
+				make_slime.emit(Vector2(neighbor.x, neighbor.y))
+				slime_made = true
+			tracker += 1
+
+func find_normal_neighbor(column, row):
+
+	if in_grid(column + 1, row):
+		if all_pieces[column + 1][row] != null and !is_piece_sinker(column + 1, row):
+			return Vector2(column + 1, row)
+
+	elif in_grid(column - 1, row):
+		if all_pieces[column - 1][row] != null and !is_piece_sinker(column - 1, row):
+			return Vector2(column - 1, row)
+
+	elif in_grid(column, row + 1):
+		if all_pieces[column][row + 1] != null and !is_piece_sinker(column, row + 1):
+			return Vector2(column, row + 1)
+
+	elif in_grid(column, row -1):
+		if all_pieces[column][row-1] != null and !is_piece_sinker(column, row - 1):
+			return Vector2(column, row-1)
+	return null
 
 func _on_destroy_timer_timeout():
 	print("destroy")
@@ -391,8 +522,7 @@ func game_over():
 	if won:
 		get_tree().change_scene_to_file('res://scenes/won.tscn')
 	else:
-		get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").show()
-		get_parent().get_node("background2").show()
+		get_tree().change_scene_to_file('res://scenes/lost.tscn')
 
 func _on_clock_timeout():
 	if counter>0:
@@ -406,3 +536,20 @@ func _on_icing_holder_remove_icing(board_position):
 	for i in range(icing_spaces.size()-1,-1,-1):
 		if icing_spaces[i]==board_position:
 			icing_spaces.remove_at(i)
+
+func _on_lock_holder_remove_lock(board_position):
+	for i in range(lock_spaces.size()-1,-1,-1):
+		if lock_spaces[i]==board_position:
+			lock_spaces.remove_at(i)
+
+func _on_slime_holder_remove_slime(board_position):
+	damaged_slime = true
+	for i in range(slime_spaces.size()-1,-1,-1):
+		if slime_spaces[i]==board_position:
+			slime_spaces.remove_at(i)
+
+
+func _on_jelly_holder_remove_jelly(board_position):
+	for i in range(jelly_spaces.size()-1,-1,-1):
+		if jelly_spaces[i]==board_position:
+			jelly_spaces.remove_at(i)

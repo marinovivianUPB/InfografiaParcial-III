@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv4iunoy06old"]
 
 [ext_resource type="Script" path="res://scripts/icing.gd" id="1_b6ygk"]
-[ext_resource type="Texture2D" uid="uid://d1ucglmj14llv" path="res://assets/pieces/Rainbow.png" id="1_uprv1"]
+[ext_resource type="Texture2D" uid="uid://d1ucglmj14llv" path="res://assets/special_pieces/Rainbow.png" id="2_eraqq"]
 
 [node name="icing" type="Node2D"]
 script = ExtResource("1_b6ygk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_uprv1")
+texture = ExtResource("2_eraqq")

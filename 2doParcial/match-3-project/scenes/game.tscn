@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cruh8bbcfvyvr"]
+[gd_scene load_steps=10 format=3 uid="uid://cruh8bbcfvyvr"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_blg2x"]
 [ext_resource type="PackedScene" uid="uid://bt33j5dwxano3" path="res://scenes/top_ui.tscn" id="2_wrbvl"]
 [ext_resource type="Texture2D" uid="uid://cdunkljd6up72" path="res://assets/bottom_ui.png" id="3_jy0d4"]
 [ext_resource type="Script" path="res://scripts/grid.gd" id="4_4jr62"]
+[ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="4_82744"]
 [ext_resource type="Script" path="res://scripts/icing_holder.gd" id="5_bc8ov"]
+[ext_resource type="Script" path="res://scripts/lock_holder.gd" id="6_tpthp"]
+[ext_resource type="Script" path="res://scripts/jelly_holder.gd" id="8_xhtgt"]
+[ext_resource type="Script" path="res://scripts/slime_holder.gd" id="9_k5sgk"]
 
 [node name="Game" type="Node2D"]
 
@@ -43,10 +47,14 @@ size_flags_vertical = 4
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "GAME OVER"
+theme_override_colors/font_color = Color(1, 0.0745098, 0.0588235, 0.827451)
+theme_override_fonts/font = ExtResource("4_82744")
+theme_override_font_sizes/font_size = 40
+text = "BOMB!"
 horizontal_alignment = 1
+
+[node name="jelly_holder" type="Node2D" parent="."]
+script = ExtResource("8_xhtgt")
 
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource("4_4jr62")
@@ -56,7 +64,13 @@ x_start = 64
 y_start = 800
 offset = 64
 y_offset = 2
+lock_spaces = PackedVector2Array(3, 4, 3, 5, 4, 4, 4, 5)
 can_bomb = true
+can_color_bomb = true
+timer = true
+counter = 60
+move_counter = 40
+target_score = 800
 
 [node name="clock" type="Timer" parent="grid"]
 
@@ -75,16 +89,21 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="background2" type="TextureRect" parent="."]
-visible = false
-modulate = Color(0.0823529, 0.0823529, 0.0823529, 0.756863)
-z_index = 1
-offset_right = 576.0
-offset_bottom = 1024.0
-texture = ExtResource("1_blg2x")
+[node name="lock_holder" type="Node2D" parent="."]
+script = ExtResource("6_tpthp")
 
+[node name="slime_holder" type="Node2D" parent="."]
+script = ExtResource("9_k5sgk")
+
+[connection signal="remove_jelly" from="jelly_holder" to="grid" method="_on_jelly_holder_remove_jelly"]
 [connection signal="damage_icing" from="grid" to="icing_holder" method="_on_grid_damage_icing"]
+[connection signal="damage_jelly" from="grid" to="jelly_holder" method="_on_grid_damage_jelly"]
+[connection signal="damage_lock" from="grid" to="lock_holder" method="_on_grid_damage_lock"]
+[connection signal="damage_slime" from="grid" to="slime_holder" method="_on_grid_damage_slime"]
 [connection signal="make_icing" from="grid" to="icing_holder" method="_on_grid_make_icing"]
+[connection signal="make_jelly" from="grid" to="jelly_holder" method="_on_grid_make_jelly"]
+[connection signal="make_lock" from="grid" to="lock_holder" method="_on_grid_make_lock"]
+[connection signal="make_slime" from="grid" to="slime_holder" method="_on_grid_make_slime"]
 [connection signal="update_move_counter" from="grid" to="top_ui" method="_on_grid_update_move_counter"]
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]
 [connection signal="update_timer" from="grid" to="top_ui" method="_on_grid_update_timer"]
@@ -93,3 +112,5 @@ texture = ExtResource("1_blg2x")
 [connection signal="timeout" from="destroy_timer" to="grid" method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]
 [connection signal="timeout" from="refill_timer" to="grid" method="_on_refill_timer_timeout"]
+[connection signal="remove_lock" from="lock_holder" to="grid" method="_on_lock_holder_remove_lock"]
+[connection signal="remove_slime" from="slime_holder" to="grid" method="_on_slime_holder_remove_slime"]

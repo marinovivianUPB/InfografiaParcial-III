@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dim0ruo8yatsp"]
+
+[ext_resource type="Script" path="res://scripts/lost.gd" id="1_nwatl"]
+
+[node name="lost" type="Node2D"]
+script = ExtResource("1_nwatl")

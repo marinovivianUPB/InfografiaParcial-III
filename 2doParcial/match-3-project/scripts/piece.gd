@@ -14,4 +14,7 @@ func dim():
 	$Sprite2D.modulate = Color(1, 1, 1, 0.5)
 
 func selected():
-	$Sprite2D.modulate = Color(0,0,0, 0.5)
+	$Sprite2D.modulate = Color(229/255.0,51/255.0,39/255.0, 0.5)
+	
+func color_selected():
+	$Sprite2D.modulate = Color(127/255.0,20/255.0,178/255.0, 0.5)

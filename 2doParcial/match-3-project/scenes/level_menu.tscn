@@ -1,0 +1,183 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhf1j0v6ihyjj"]
+
+[ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_3fekj"]
+[ext_resource type="Texture2D" uid="uid://ckgu4q1oqekmt" path="res://assets/Button Template Blue DEF.png" id="2_gtvrn"]
+[ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="3_wjuvr"]
+
+[node name="level_menu" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_3fekj")
+
+[node name="Niveles" type="MarginContainer" parent="."]
+offset_right = 576.0
+offset_bottom = 1024.0
+
+[node name="Niveles" type="VBoxContainer" parent="Niveles"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BombColorBomb" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/BombColorBomb"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "Bombs"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="EmptySpaces" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/EmptySpaces"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "Empty Spaces"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="Jelly" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/Jelly"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "JELLY
+"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="Icing" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/Icing"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "Icing"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="Chocolate" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/Chocolate"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "Chocolate"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="Licorice" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/Licorice"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "Licorice"
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="All" type="TextureRect" parent="Niveles/Niveles"]
+layout_mode = 2
+texture = ExtResource("2_gtvrn")
+expand_mode = 5
+stretch_mode = 2
+
+[node name="name" type="Label" parent="Niveles/Niveles/All"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_wjuvr")
+theme_override_font_sizes/font_size = 60
+text = "ALL
+"
+horizontal_alignment = 1
+justification_flags = 0

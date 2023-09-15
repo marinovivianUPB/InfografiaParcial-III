@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1ucglmj14llv"
-path="res://.godot/imported/Rainbow.png-ff68af06739511c09602914e6ab7b46b.ctex"
+uid="uid://bf3my4bkbkrrt"
+path="res://.godot/imported/Slime.png-8b0ec1ea8b66611a619cc3cd37b92da3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pieces/Rainbow.png"
-dest_files=["res://.godot/imported/Rainbow.png-ff68af06739511c09602914e6ab7b46b.ctex"]
+source_file="res://assets/special_pieces/Slime.png"
+dest_files=["res://.godot/imported/Slime.png-8b0ec1ea8b66611a619cc3cd37b92da3.ctex"]
 
 [params]
 
