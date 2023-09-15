@@ -1,77 +1,88 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1694739069
-icon.svg::CompressedTexture2D::1439219327908246736::1694435665::1694437318::1::::<><>::
-::res://assets/::1694736185
-background.png::CompressedTexture2D::3612365713185931583::1694435664::1694437319::1::::<><>::
-bottom_ui.png::CompressedTexture2D::5025503224065136327::1694435664::1694437318::1::::<><>::
-Button Template Blue Big.png::CompressedTexture2D::5206823159435732108::1694734965::1694735011::1::::<><>::
-Button Template Blue DEF.png::CompressedTexture2D::5488383079365619507::1694736163::1694736185::1::::<><>::
-Button Template Blue.png::CompressedTexture2D::3428799507947282737::1533086034::1694733927::1::::<><>::
-Button Template Green.png::CompressedTexture2D::5083033323620152222::1533085936::1694733927::1::::<><>::
-confetti.jpg::CompressedTexture2D::2940160449608347903::1694435664::1694437319::1::::<><>::
-top_ui.png::CompressedTexture2D::2391556754229468520::1694435665::1694437318::1::::<><>::
-::res://assets/fonts/::1694437317
-Kenney Blocks.ttf::FontFile::4345262982494110453::1694435664::1694437317::1::::<><>::
-::res://assets/pieces/::1694727436
-Blue Adjacent.png::CompressedTexture2D::8986700520750168311::1694435664::1694437320::1::::<><>::
-Blue Column.png::CompressedTexture2D::6940635691129742527::1694435664::1694437320::1::::<><>::
-Blue Piece.png::CompressedTexture2D::4276088075349927580::1694435664::1694437320::1::::<><>::
-Blue Row.png::CompressedTexture2D::7686939823568969294::1694435664::1694437320::1::::<><>::
-Green Adjacent.png::CompressedTexture2D::6884154741383067751::1694435664::1694437320::1::::<><>::
-Green Column.png::CompressedTexture2D::7302053377141735409::1694435664::1694437320::1::::<><>::
-Green Piece.png::CompressedTexture2D::2688167128463751812::1694435664::1694437319::1::::<><>::
-Green Row.png::CompressedTexture2D::4459558441634730954::1694435664::1694437319::1::::<><>::
-Light Green Adjacent.png::CompressedTexture2D::7964912903862199785::1694435664::1694437319::1::::<><>::
-Light Green Column.png::CompressedTexture2D::5115428381568979078::1694435664::1694437319::1::::<><>::
-Light Green Piece.png::CompressedTexture2D::7881158460844102575::1694435664::1694437319::1::::<><>::
-Light Green Row.png::CompressedTexture2D::2509657885744458608::1694435664::1694437319::1::::<><>::
-Orange Adjacent.png::CompressedTexture2D::281552115671827102::1694435664::1694437319::1::::<><>::
-Orange Column.png::CompressedTexture2D::2932086193488151118::1694435664::1694437319::1::::<><>::
-Orange Piece.png::CompressedTexture2D::7677456399408438553::1694435664::1694437319::1::::<><>::
-Orange Row.png::CompressedTexture2D::2863983172177445410::1694435664::1694437318::1::::<><>::
-Pink Adjacent.png::CompressedTexture2D::1367170430121408988::1694435664::1694437318::1::::<><>::
-Pink Column.png::CompressedTexture2D::1048171795183027233::1694435664::1694437318::1::::<><>::
-Pink Piece 2.png::CompressedTexture2D::7455300608330368279::1694435664::1694437318::1::::<><>::
-Pink Piece 3.png::CompressedTexture2D::3333962352304732470::1694435664::1694437318::1::::<><>::
-Pink Piece.png::CompressedTexture2D::6704190838687771640::1694435664::1694437318::1::::<><>::
-Pink Row.png::CompressedTexture2D::7876882718016707058::1694435664::1694437318::1::::<><>::
-Yellow Adjacent.png::CompressedTexture2D::6822603290880438611::1694435665::1694437318::1::::<><>::
-Yellow Column.png::CompressedTexture2D::1746158678168645634::1694435665::1694437318::1::::<><>::
-Yellow Piece.png::CompressedTexture2D::413519736513276236::1694435665::1694437318::1::::<><>::
-Yellow Row.png::CompressedTexture2D::5902573126665028620::1694435665::1694437318::1::::<><>::
-::res://assets/special_pieces/::1694738320
-jelly.png::CompressedTexture2D::3792935404684335408::1694738298::1694738320::1::::<><>::
-Locks.png::CompressedTexture2D::7100364920455257774::1694727474::1694727521::1::::<><>::
-Rainbow.png::CompressedTexture2D::9025592286237624031::1694435664::1694727447::1::::<><>::
-Slime.png::CompressedTexture2D::2795940467141914233::1694738290::1694738320::1::::<><>::
-::res://scenes/::1694739069
-blue_piece.tscn::PackedScene::3723709248147792561::1694732875::0::1::::<><>::uid://dimhfx4c1igfv::::res://scenes/piece.tscn<>uid://b16mstal83djo::::res://assets/pieces/Blue Piece.png
-game.tscn::PackedScene::6007823268628735923::1694739051::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://bt33j5dwxano3::::res://scenes/top_ui.tscn<>uid://cdunkljd6up72::::res://assets/bottom_ui.png<>res://scripts/grid.gd<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf<>res://scripts/icing_holder.gd<>res://scripts/lock_holder.gd<>res://scripts/jelly_holder.gd<>res://scripts/slime_holder.gd
-green_piece.tscn::PackedScene::2133657546713321240::1694435665::0::1::::<><>::uid://dimhfx4c1igfv
-icing.tscn::PackedScene::8693616879721853625::1694733106::0::1::::<><>::res://scripts/icing.gd<>uid://d1ucglmj14llv::::res://assets/special_pieces/Rainbow.png
-jelly.tscn::PackedScene::7158850103368675905::1694738349::0::1::::<><>::res://scripts/jelly.gd<>uid://bubldekn6vu2s::::res://assets/special_pieces/jelly.png
-level_menu.tscn::PackedScene::2889660538830837107::1694737319::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://ckgu4q1oqekmt::::res://assets/Button Template Blue DEF.png<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
-licorice.tscn::PackedScene::445546882584607561::1694733106::0::1::::<><>::uid://c8fp8cvowgexa::::res://assets/special_pieces/Locks.png<>res://scripts/licorice.gd
-light_green_piece.tscn::PackedScene::4761783514317088189::1694435665::0::1::::<><>::uid://dimhfx4c1igfv
-lost.gd::GDScript::-1::1694736569::0::1::::<>Node2D<>::
-lost.tscn::PackedScene::7747094690173552735::1694739076::0::1::::<><>::res://scenes/lost.gd
-orange_piece.tscn::PackedScene::6922208767561527685::1694435665::0::1::::<><>::uid://dimhfx4c1igfv
-piece.tscn::PackedScene::7745980534113487799::1694435665::0::1::::<><>::res://scripts/piece.gd
-pink_piece.tscn::PackedScene::4170104838850698021::1694435665::0::1::::<><>::uid://dimhfx4c1igfv
-slime.tscn::PackedScene::5979040599905122544::1694739069::0::1::::<><>::res://scripts/slime.gd<>uid://bf3my4bkbkrrt::::res://assets/special_pieces/Slime.png
-top_ui.tscn::PackedScene::3779529019237243292::1694733106::0::1::::<><>::uid://bacqucona7fm3::::res://assets/top_ui.png<>res://scripts/top_ui.gd<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
-won.tscn::PackedScene::1848833215022567752::1694736527::0::1::::<><>::uid://bh5iapcu2lkvf::::res://assets/confetti.jpg<>res://scripts/won.gd
-yellow_piece.tscn::PackedScene::8054288014610159906::1694435665::0::1::::<><>::uid://dimhfx4c1igfv
-::res://scripts/::1694739069
-grid.gd::GDScript::-1::1694739051::0::1::::<>Node2D<>::
-icing.gd::GDScript::-1::1694489181::0::1::::<>Node2D<>::
-icing_holder.gd::GDScript::-1::1694728108::0::1::::<>Node2D<>::
-jelly.gd::GDScript::-1::1694737436::0::1::::<>Node2D<>::
-jelly_holder.gd::GDScript::-1::1694738412::0::1::::<>Node2D<>::
-licorice.gd::GDScript::-1::1694727284::0::1::::<>Node2D<>::
-lock_holder.gd::GDScript::-1::1694728130::0::1::::<>Node2D<>::
-piece.gd::GDScript::-1::1694731535::0::1::::<>Node2D<>::
-slime.gd::GDScript::-1::1694737398::0::1::::<>Node2D<>::
-slime_holder.gd::GDScript::-1::1694738441::0::1::::<>Node2D<>::
-top_ui.gd::GDScript::-1::1694435665::0::1::::<>TextureRect<>::
-won.gd::GDScript::-1::1694736528::0::1::::<>Node2D<>::
+::res://::1694747139
+icon.svg::CompressedTexture2D::1439219327908246736::1694741750::1694741750::1::::<><>::
+::res://assets/::1694747141
+background.png::CompressedTexture2D::3612365713185931583::1694741750::1694747141::1::::<><>::
+bottom_ui.png::CompressedTexture2D::5025503224065136327::1694741750::1694741750::1::::<><>::
+Button Template Blue Big.png::CompressedTexture2D::5206823159435732108::1694741750::1694741750::1::::<><>::
+Button Template Blue DEF.png::CompressedTexture2D::5488383079365619507::1694741750::1694741750::1::::<><>::
+Button Template Blue.png::CompressedTexture2D::3428799507947282737::1694741750::1694741750::1::::<><>::
+Button Template Green.png::CompressedTexture2D::5083033323620152222::1694741750::1694741750::1::::<><>::
+confetti.jpg::CompressedTexture2D::2940160449608347903::1694741750::1694741750::1::::<><>::
+Quit Button.png::CompressedTexture2D::2560639600016695621::1694736386::1694746951::1::::<><>::
+Restart Button.png::CompressedTexture2D::7285465543915295143::1694736377::1694746951::1::::<><>::
+top_ui.png::CompressedTexture2D::2391556754229468520::1694741750::1694741750::1::::<><>::
+::res://assets/fonts/::1694741750
+Kenney Blocks.ttf::FontFile::4345262982494110453::1694741750::1694741750::1::::<><>::
+::res://assets/pieces/::1694741750
+Blue Adjacent.png::CompressedTexture2D::8986700520750168311::1694741750::1694741750::1::::<><>::
+Blue Column.png::CompressedTexture2D::6940635691129742527::1694741750::1694741750::1::::<><>::
+Blue Piece.png::CompressedTexture2D::4276088075349927580::1694741750::1694741750::1::::<><>::
+Blue Row.png::CompressedTexture2D::7686939823568969294::1694741750::1694741750::1::::<><>::
+Green Adjacent.png::CompressedTexture2D::6884154741383067751::1694741750::1694741750::1::::<><>::
+Green Column.png::CompressedTexture2D::7302053377141735409::1694741750::1694741750::1::::<><>::
+Green Piece.png::CompressedTexture2D::2688167128463751812::1694741750::1694741750::1::::<><>::
+Green Row.png::CompressedTexture2D::4459558441634730954::1694741750::1694741750::1::::<><>::
+Light Green Adjacent.png::CompressedTexture2D::7964912903862199785::1694741750::1694741750::1::::<><>::
+Light Green Column.png::CompressedTexture2D::5115428381568979078::1694741750::1694741750::1::::<><>::
+Light Green Piece.png::CompressedTexture2D::7881158460844102575::1694741750::1694741750::1::::<><>::
+Light Green Row.png::CompressedTexture2D::2509657885744458608::1694741750::1694741750::1::::<><>::
+Orange Adjacent.png::CompressedTexture2D::281552115671827102::1694741750::1694741750::1::::<><>::
+Orange Column.png::CompressedTexture2D::2932086193488151118::1694741750::1694741750::1::::<><>::
+Orange Piece.png::CompressedTexture2D::7677456399408438553::1694741750::1694741750::1::::<><>::
+Orange Row.png::CompressedTexture2D::2863983172177445410::1694741750::1694741750::1::::<><>::
+Pink Adjacent.png::CompressedTexture2D::1367170430121408988::1694741750::1694741750::1::::<><>::
+Pink Column.png::CompressedTexture2D::1048171795183027233::1694741750::1694741750::1::::<><>::
+Pink Piece 2.png::CompressedTexture2D::7455300608330368279::1694741750::1694741750::1::::<><>::
+Pink Piece 3.png::CompressedTexture2D::3333962352304732470::1694741750::1694741750::1::::<><>::
+Pink Piece.png::CompressedTexture2D::6704190838687771640::1694741750::1694741750::1::::<><>::
+Pink Row.png::CompressedTexture2D::7876882718016707058::1694741750::1694741750::1::::<><>::
+Yellow Adjacent.png::CompressedTexture2D::6822603290880438611::1694741750::1694741750::1::::<><>::
+Yellow Column.png::CompressedTexture2D::1746158678168645634::1694741750::1694741750::1::::<><>::
+Yellow Piece.png::CompressedTexture2D::413519736513276236::1694741750::1694741750::1::::<><>::
+Yellow Row.png::CompressedTexture2D::5902573126665028620::1694741750::1694741750::1::::<><>::
+::res://assets/special_pieces/::1694747139
+jelly.png::CompressedTexture2D::3792935404684335408::1694741750::1694741750::1::::<><>::
+Locks.png::CompressedTexture2D::7100364920455257774::1694741750::1694741750::1::::<><>::
+Rainbow.png::CompressedTexture2D::9025592286237624031::1694741750::1694741750::1::::<><>::
+Slime.png::CompressedTexture2D::2795940467141914233::1694741750::1694741750::1::::<><>::
+::res://scenes/::1694748148
+blue_piece.tscn::PackedScene::3723709248147792561::1694741750::0::1::::<><>::uid://dimhfx4c1igfv
+game.tscn::PackedScene::6007823268628735923::1694747820::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://bt33j5dwxano3::::res://scenes/top_ui.tscn<>uid://cdunkljd6up72::::res://assets/bottom_ui.png<>res://scripts/grid.gd<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf<>res://scripts/icing_holder.gd<>res://scripts/lock_holder.gd<>res://scripts/jelly_holder.gd<>res://scripts/slime_holder.gd
+green_piece.tscn::PackedScene::2133657546713321240::1694741750::0::1::::<><>::uid://dimhfx4c1igfv
+icing.tscn::PackedScene::8693616879721853625::1694741750::0::1::::<><>::res://scripts/icing.gd<>uid://d1ucglmj14llv
+jelly.tscn::PackedScene::7158850103368675905::1694747820::0::1::::<><>::res://scripts/jelly.gd<>uid://bubldekn6vu2s::::res://assets/special_pieces/jelly.png
+level_menu.tscn::PackedScene::2889660538830837107::1694748125::0::1::::<><>::uid://brp4euwugc18f::::res://assets/background.png<>uid://ckgu4q1oqekmt::::res://assets/Button Template Blue DEF.png<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
+licorice.tscn::PackedScene::445546882584607561::1694747820::0::1::::<><>::uid://c8fp8cvowgexa::::res://assets/special_pieces/Locks.png<>res://scripts/licorice.gd
+light_green_piece.tscn::PackedScene::4761783514317088189::1694747820::0::1::::<><>::uid://dimhfx4c1igfv::::res://scenes/piece.tscn<>uid://dkjxr73f4g1t8::::res://assets/pieces/Light Green Piece.png
+lost.tscn::PackedScene::7747094690173552735::1694747820::0::1::::<><>::res://scripts/lost.gd<>uid://brp4euwugc18f::::res://assets/background.png<>uid://bcqnmijkeai0t::::res://assets/Quit Button.png<>uid://ckgu4q1oqekmt::::res://assets/Button Template Blue DEF.png<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
+orange_piece.tscn::PackedScene::6922208767561527685::1694747820::0::1::::<><>::uid://dimhfx4c1igfv::::res://scenes/piece.tscn<>uid://dhnat5rakkcof::::res://assets/pieces/Orange Piece.png
+piece.tscn::PackedScene::7745980534113487799::1694741750::0::1::::<><>::res://scripts/piece.gd
+pink_piece.tscn::PackedScene::4170104838850698021::1694741750::0::1::::<><>::uid://dimhfx4c1igfv
+level_menu.gd::GDScript::-1::1694749095::0::1::::<>Node2D<>::
+slime.tscn::PackedScene::5979040599905122544::1694747820::0::1::::<><>::res://scripts/slime.gd<>uid://bf3my4bkbkrrt::::res://assets/special_pieces/Slime.png
+top_ui.tscn::PackedScene::3779529019237243292::1694747820::0::1::::<><>::uid://bacqucona7fm3::::res://assets/top_ui.png<>res://scripts/top_ui.gd<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
+won.tscn::PackedScene::1848833215022567752::1694747820::0::1::::<><>::res://scripts/won.gd<>uid://brp4euwugc18f::::res://assets/background.png<>uid://db2es2muaeqrf::::res://assets/Restart Button.png<>uid://ckgu4q1oqekmt::::res://assets/Button Template Blue DEF.png<>uid://b25431rxog83j::::res://assets/fonts/Kenney Blocks.ttf
+yellow_piece.tscn::PackedScene::8054288014610159906::1694747820::0::1::::<><>::uid://dimhfx4c1igfv::::res://scenes/piece.tscn<>uid://f5kuy0p0cwye::::res://assets/pieces/Yellow Piece.png
+::res://scenes/niveles/::1694748148
+bombs.tscn::PackedScene::1505893833671245015::1694748174::0::1::::<><>::
+empty spaces.tscn::PackedScene::6402177733793164416::1694748218::0::1::::<><>::
+jelly.tscn::PackedScene::2443310298984806392::1694748234::0::1::::<><>::
+icing.tscn::PackedScene::3540318293395311466::1694748243::0::1::::<><>::
+chocolate.tscn::PackedScene::582669100025743031::1694748280::0::1::::<><>::
+licorice.tscn::PackedScene::7774074533339275637::1694748287::0::1::::<><>::
+all.tscn::PackedScene::2446371365439010275::1694748296::0::1::::<><>::
+::res://scripts/::1694747644
+grid.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+icing.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+icing_holder.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+jelly.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+jelly_holder.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+licorice.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+lock_holder.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+lost.gd::GDScript::-1::1694747644::0::1::::<>Node2D<>::
+piece.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+slime.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+slime_holder.gd::GDScript::-1::1694741750::0::1::::<>Node2D<>::
+top_ui.gd::GDScript::-1::1694741750::0::1::::<>TextureRect<>::
+won.gd::GDScript::-1::1694747629::0::1::::<>Node2D<>::

@@ -1,34 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://1luao7lro74o"]
+[gd_scene load_steps=6 format=3 uid="uid://1luao7lro74o"]
 
-[ext_resource type="Texture2D" uid="uid://bh5iapcu2lkvf" path="res://assets/confetti.jpg" id="1_bs1ri"]
 [ext_resource type="Script" path="res://scripts/won.gd" id="1_hcvd5"]
+[ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="2_j5kpk"]
+[ext_resource type="Texture2D" uid="uid://db2es2muaeqrf" path="res://assets/Restart Button.png" id="3_6c53k"]
+[ext_resource type="Texture2D" uid="uid://ckgu4q1oqekmt" path="res://assets/Button Template Blue DEF.png" id="4_oxjc5"]
+[ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="5_2umfb"]
 
 [node name="won" type="Node2D"]
 script = ExtResource("1_hcvd5")
 
-[node name="background3" type="TextureRect" parent="."]
-z_index = 3
-offset_left = -24.0
-offset_right = 588.0
-offset_bottom = 1024.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_bs1ri")
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3.0
+offset_top = 2.0
+offset_right = 573.0
+offset_bottom = 1026.0
+texture = ExtResource("2_j5kpk")
 
-[node name="Label" type="Label" parent="background3"]
+[node name="quit button" type="TextureButton" parent="TextureRect"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.5
-offset_top = -13.0
-offset_right = 34.5
-offset_bottom = 13.0
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -205.0
+offset_right = 103.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.360784, 0.560784, 1, 1)
-theme_override_font_sizes/font_size = 52
+grow_vertical = 0
+texture_normal = ExtResource("3_6c53k")
+
+[node name="BombColorBomb" type="TextureButton" parent="."]
+offset_left = 4.0
+offset_top = 366.0
+offset_right = 570.0
+offset_bottom = 502.0
+texture_normal = ExtResource("4_oxjc5")
+
+[node name="name" type="Label" parent="BombColorBomb"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("5_2umfb")
+theme_override_font_sizes/font_size = 60
 text = "You Won"
+horizontal_alignment = 1
+justification_flags = 0
+
+[connection signal="pressed" from="TextureRect/quit button" to="." method="_on_quit_button_pressed"]

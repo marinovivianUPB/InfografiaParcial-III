@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhf1j0v6ihyjj"]
+[gd_scene load_steps=5 format=3 uid="uid://bhf1j0v6ihyjj"]
 
 [ext_resource type="Texture2D" uid="uid://brp4euwugc18f" path="res://assets/background.png" id="1_3fekj"]
+[ext_resource type="Script" path="res://scripts/level_menu.gd" id="1_ddgiq"]
 [ext_resource type="Texture2D" uid="uid://ckgu4q1oqekmt" path="res://assets/Button Template Blue DEF.png" id="2_gtvrn"]
 [ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="3_wjuvr"]
 
 [node name="level_menu" type="Node2D"]
+script = ExtResource("1_ddgiq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 40.0
@@ -19,11 +21,9 @@ offset_bottom = 1024.0
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="BombColorBomb" type="TextureRect" parent="Niveles/Niveles"]
+[node name="BombColorBomb" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/BombColorBomb"]
 layout_mode = 1
@@ -42,11 +42,9 @@ text = "Bombs"
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="EmptySpaces" type="TextureRect" parent="Niveles/Niveles"]
+[node name="EmptySpaces" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/EmptySpaces"]
 layout_mode = 1
@@ -65,11 +63,9 @@ text = "Empty Spaces"
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="Jelly" type="TextureRect" parent="Niveles/Niveles"]
+[node name="Jelly" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/Jelly"]
 layout_mode = 1
@@ -89,11 +85,9 @@ text = "JELLY
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="Icing" type="TextureRect" parent="Niveles/Niveles"]
+[node name="Icing" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/Icing"]
 layout_mode = 1
@@ -112,11 +106,9 @@ text = "Icing"
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="Chocolate" type="TextureRect" parent="Niveles/Niveles"]
+[node name="Chocolate" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/Chocolate"]
 layout_mode = 1
@@ -135,11 +127,9 @@ text = "Chocolate"
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="Licorice" type="TextureRect" parent="Niveles/Niveles"]
+[node name="Licorice" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/Licorice"]
 layout_mode = 1
@@ -158,11 +148,9 @@ text = "Licorice"
 horizontal_alignment = 1
 justification_flags = 0
 
-[node name="All" type="TextureRect" parent="Niveles/Niveles"]
+[node name="All" type="TextureButton" parent="Niveles/Niveles"]
 layout_mode = 2
-texture = ExtResource("2_gtvrn")
-expand_mode = 5
-stretch_mode = 2
+texture_normal = ExtResource("2_gtvrn")
 
 [node name="name" type="Label" parent="Niveles/Niveles/All"]
 layout_mode = 1
@@ -181,3 +169,11 @@ text = "ALL
 "
 horizontal_alignment = 1
 justification_flags = 0
+
+[connection signal="pressed" from="Niveles/Niveles/BombColorBomb" to="." method="_on_bomb_color_bomb_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/EmptySpaces" to="." method="_on_empty_spaces_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/Jelly" to="." method="_on_jelly_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/Icing" to="." method="_on_icing_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/Chocolate" to="." method="_on_chocolate_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/Licorice" to="." method="_on_licorice_pressed"]
+[connection signal="pressed" from="Niveles/Niveles/All" to="." method="_on_all_pressed"]

@@ -369,7 +369,7 @@ func destroy_matched():
 			bomb_counter=0
 			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").text = "BOMB!"
 			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").show()
-		if color_bomb_counter>=1000 && !bomb_space:
+		if color_bomb_counter>=600 && !bomb_space:
 			color_bomb_space=true
 			color_bomb_counter=0
 			get_parent().get_node("bottom_ui/MarginContainer/HBoxContainer/Label").text = "COLOR BOMB!"

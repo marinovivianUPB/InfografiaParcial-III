@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://hw3ngd1ud5d"]
+
+[ext_resource type="PackedScene" uid="uid://cruh8bbcfvyvr" path="res://scenes/game.tscn" id="1_bmuy4"]
+
+[node name="Game" instance=ExtResource("1_bmuy4")]
+
+[node name="grid" parent="." index="4"]
+icing_spaces = PackedVector2Array()
+lock_spaces = PackedVector2Array()
+empty_spaces = PackedVector2Array(5, 3, 6, 3, 5, 4, 6, 4, 4, 3)
+move_counter = 30
+target_score = 400

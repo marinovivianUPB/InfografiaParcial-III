@@ -64,6 +64,7 @@ x_start = 64
 y_start = 800
 offset = 64
 y_offset = 2
+icing_spaces = PackedVector2Array(0, 0)
 lock_spaces = PackedVector2Array(3, 4, 3, 5, 4, 4, 4, 5)
 can_bomb = true
 can_color_bomb = true
