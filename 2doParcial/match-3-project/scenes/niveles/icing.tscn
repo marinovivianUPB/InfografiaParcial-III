@@ -5,7 +5,7 @@
 [node name="Game" instance=ExtResource("1_5xpid")]
 
 [node name="grid" parent="." index="4"]
-icing_spaces = PackedVector2Array(8, 4, 9, 2, 5, 3, 7, 4)
+icing_spaces = PackedVector2Array(4, 4, 3, 2, 5, 3, 7, 4)
 lock_spaces = PackedVector2Array()
 can_bomb = false
 can_color_bomb = false

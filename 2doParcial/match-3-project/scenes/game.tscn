@@ -53,9 +53,6 @@ theme_override_font_sizes/font_size = 40
 text = "BOMB!"
 horizontal_alignment = 1
 
-[node name="jelly_holder" type="Node2D" parent="."]
-script = ExtResource("8_xhtgt")
-
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource("4_4jr62")
 width = 8
@@ -74,6 +71,9 @@ move_counter = 40
 target_score = 800
 
 [node name="clock" type="Timer" parent="grid"]
+
+[node name="jelly_holder" type="Node2D" parent="."]
+script = ExtResource("8_xhtgt")
 
 [node name="icing_holder" type="Node2D" parent="."]
 script = ExtResource("5_bc8ov")
@@ -96,7 +96,6 @@ script = ExtResource("6_tpthp")
 [node name="slime_holder" type="Node2D" parent="."]
 script = ExtResource("9_k5sgk")
 
-[connection signal="remove_jelly" from="jelly_holder" to="grid" method="_on_jelly_holder_remove_jelly"]
 [connection signal="damage_icing" from="grid" to="icing_holder" method="_on_grid_damage_icing"]
 [connection signal="damage_jelly" from="grid" to="jelly_holder" method="_on_grid_damage_jelly"]
 [connection signal="damage_lock" from="grid" to="lock_holder" method="_on_grid_damage_lock"]
@@ -109,6 +108,7 @@ script = ExtResource("9_k5sgk")
 [connection signal="update_score" from="grid" to="top_ui" method="_on_grid_update_score"]
 [connection signal="update_timer" from="grid" to="top_ui" method="_on_grid_update_timer"]
 [connection signal="timeout" from="grid/clock" to="grid" method="_on_clock_timeout"]
+[connection signal="remove_jelly" from="jelly_holder" to="grid" method="_on_jelly_holder_remove_jelly"]
 [connection signal="remove_icing" from="icing_holder" to="grid" method="_on_icing_holder_remove_icing"]
 [connection signal="timeout" from="destroy_timer" to="grid" method="_on_destroy_timer_timeout"]
 [connection signal="timeout" from="collapse_timer" to="grid" method="_on_collapse_timer_timeout"]

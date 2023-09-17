@@ -1,17 +1,5 @@
 res://scenes/game.tscn
-res://scenes/won.tscn
 res://scenes/level_menu.tscn
-res://scenes/top_ui.tscn
-res://scenes/lost.tscn
-res://scenes/slime.tscn
-res://scenes/jelly.tscn
-res://scenes/licorice.tscn
-res://scenes/light_green_piece.tscn
-res://scenes/orange_piece.tscn
-res://scenes/yellow_piece.tscn
-res://scripts/lost.gd
-res://scripts/won.gd
-res://scripts/level_menu.gd
 res://scenes/niveles/bombs.tscn
 res://scenes/niveles/empty spaces.tscn
 res://scenes/niveles/jelly.tscn
@@ -19,5 +7,3 @@ res://scenes/niveles/icing.tscn
 res://scenes/niveles/chocolate.tscn
 res://scenes/niveles/licorice.tscn
 res://scenes/niveles/all.tscn
-res://scenes/blue_piece.tscn
-res://scripts/grid.gd
